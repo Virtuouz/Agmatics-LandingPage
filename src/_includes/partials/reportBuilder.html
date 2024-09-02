@@ -1,0 +1,75 @@
+<div class="flex w-full items-center justify-center p-4 scroll-auto">
+  <div class="w-[800px]">
+    <div
+      class="flex h-8 w-full items-center justify-between gap-2 bg-[linear-gradient(90deg,_#1F5364_0%,_#144251_100%)] pl-4"
+    >
+      <div class="flex gap-2">
+        <div
+          class="h-4 w-4 rounded-full border-2 border-rose-700 bg-[#FD565E]"
+        ></div>
+        <div
+          class="h-4 w-4 rounded-full border-2 border-amber-400 bg-amber-500"
+        ></div>
+        <div
+          class="h-4 w-4 rounded-full border-2 border-green-600 bg-[#25CB3B]"
+        ></div>
+      </div>
+      <div class="pr-4 text-white" id="elapsedTime"></div>
+    </div>
+    <div
+      class="h-[400px] w-full overflow-y-scroll bg-[linear-gradient(107deg,_#242424_0%,_#052E3C_100%)] text-white"
+    >
+      <form
+        class="relative text-[#97D78C] font-[chakrapetch]"
+        action=""
+        method=""
+        id="reportForm"
+        _="on submit halt the event
+          add @disabled to #generate
+          add @disabled to #urlInput
+          add .cursor-wait to #urlInput
+          add .cursor-wait to #generate
+          set $noneCounter to 0
+          get #urlInput then
+          set $url to its value log $url
+          call getHostName($url) set $hostname to it log $hostname
+          then
+          append '<br> Validating<p class=break-all>'+$url+'</p>' to #test
+          call makeCall($url, $sessionId) append it to #test
+          call scrollOutputToBottom()"
+      >
+        <div class="relative flex flex-col">
+          <div class="sticky top-0 flex flex-col bg-[linear-gradient(180deg,_#051B22_0%,_rgba(5,_27,_34,_0.70)_100%)] px-8 py-6">
+            <p class="w-full">
+              <label
+                class="relative block before:absolute before:left-[-16px] before:top-8 before:animate-pulse before:content-['>'] max-[451px]:before:top-[72px] max-[388px]:before:top-24"
+                id="labelTest"
+                for=""
+                >Enter your website below:<input
+                  class="after:animeate-pulse block bg-inherit h-8 w-full border-[#97D78C] border-2 after:absolute after:h-4 after:w-4 after:content-['_']"
+                  type="text"
+                  required
+                  name="url"
+                  id="urlInput"
+                />
+              </label>
+            </p>
+            <button
+              id="generate"
+              class="max-w-min self-end mt-2"
+              type="submit"
+              _="on click  call checkStatus($sessionId)  "
+              data-umami-event="generate-report"
+            >
+              Generate
+            </button>
+          </div>
+          <output
+            id="test"
+            class="h-full w-full max-w-[550px] grow-0 break-words px-8 pb-4 [overflow-anchor:none;]"
+          ><div id="outputAnchor" class="[overflow-anchor:auto;] h-[1px]" ></div></output>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+{% extends "layouts/base.html" %} {% block content %}
+
+<article class="pb-28 cs-w-full flex min-h-[80vh] flex-col items-center bg-vynx-offwhite [box-shadow:rgba(100,_100,_111,_0.2)_0px_50px_29px_0px;] z-30">
+  <h1
+    class="max-w-[1075px] text-center font-[archivoblack] text-4xl sm:text-[64px] sm:leading-[70px]"
+  >
+    <span
+      class="bg-[linear-gradient(92deg,_#5FB6E0_45.24%,_#156883_70.93%)] bg-clip-text text-transparent"
+      >{{hero.headline1}}</span
+    >
+    {{hero.headline2}}
+  </h1>
+  <div id="form" class="mt-24 w-full">
+    {% include "partials/freeReview-form.html" %}
+  </div>
+</article>
+
+{# WHAT YOU"LL GET #}
+<div class="sticky bottom-[-2000px] md:bottom-[-1000px] lg:bottom-[-750px] z-20" >
+  <article class="cs-w-full flex flex-col items-center bg-white pb-24 [box-shadow:rgba(100,_100,_111,_0.2)_0px_50px_29px_0px;]">
+    <div class="basecontainer">
+      <div class="flex flex-col items-center pt-20">
+        <h2 class="headline">{{ features.headline }}</h2>
+        <p class="subhead">{{features.subheadline}}</p>
+      </div>
+      <div class="mt-12 flex min-h-[900px] flex-wrap justify-center">
+        {% for placeholder,group in groups %}
+        <div
+          class="flex flex-col items-center justify-around border-x-2 {{group.css}}"
+        >
+          {% for thing,feature in group.features %}
+          <div
+            class="mx-3 mt-16 flex max-w-[300px] flex-col items-center border-t-2 py-10 max-[350px]:mx-1"
+          >
+            <div
+              class="flex h-24 w-24 items-center justify-center rounded-full bg-vynx-dullblue"
+            >
+              {% include "partials/illustrations/"+feature.icon %}
+            </div>
+            <h3
+              class="mt-1 text-center font-[archivo-semiexpandedmedium] text-3xl"
+            >
+              {{feature.headline}}
+            </h3>
+            <p class="mt-2 text-center leading-[22px]">{{feature.desc}}</p>
+          </div>
+          {% endfor %}
+        </div>
+        {% endfor %}
+      </div>
+      <button class="button mt-20 self-center z-40"
+      _="
+      on click
+      go to the top of body smoothly
+      "
+  
+      >Review my website for free</button>
+    </div>
+  </article>
+</div>
+
+<article class="mt-24 flex flex-col items-center pb-40 sticky bottom-[-500px] z-10">
+  <h2 class="headline">{{faq.headline}}</h2>
+  <ul class="mt-12 max-w-[650px]">
+    {% for temp,faq in faq.faqs %}
+    <li class="mt-8" data-fil data-fil-trigger="10">
+      <h3 class="font-[fira-sansbold] text-xl">{{faq.headline}}</h3>
+      <p>{{faq.desc}} {% if faq.link %}
+        <a href="/" class="text-vynx-lightblue underline" >{{faq.link}}</a>
+      {% endif %}</p>
+      {% if faq.list %}
+      <ul class="list-disc pl-5">
+        {% for temp,point in faq.list %}
+        <li>{{point}}</li>
+        {% endfor %}
+      </ul>
+
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+
+  <button class="button mt-20 self-center"
+    _="
+    on click 
+    go to the top of body smoothly
+    "
+    
+    >Review my website for free</button>
+</article>
+
+{% endblock %}

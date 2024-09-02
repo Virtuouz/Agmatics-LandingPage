@@ -1,0 +1,76 @@
+<article
+  class="flex justify-center w-full  bg-opacity-60 text-[rgba(255,255,255,0.85)] px-4"
+>
+  <div
+    class="flex max-w-[640px] grow justify-center bg-[linear-gradient(110deg,_#156883_0%,_#011D26_100%)] p-4"
+  >
+    <form
+      name="freeReview"
+      method="POST"
+      class="w-full"
+      data-netlify="true"
+      data-netlify-recaptcha="true"
+      data-fil
+      data-fil-trigger="10"
+    >
+      <div class="flex justify-between gap-4">
+        <p class="max-w-[230px] flex-1 grow">
+          <label
+            class="mb-2 mt-4 flex flex-col font-[fira-sansbold] text-sm uppercase"
+            for=""
+            >First Name*<input
+              type="text"
+              required
+              name="first name"
+              class="h-9 w-full border-2 border-[#070707] border-opacity-60 pl-2 font-[fira-sansregular] text-vynx-darkblue shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)_inset] hover:border-vynx-lightblue focus:border-vynx-lightblue"
+              placeholder="John" /><span></span
+          ></label>
+        </p>
+        <p class="max-w-[230px] flex-1 grow">
+          <label
+            class="mb-2 mt-4 flex flex-col font-[fira-sansbold] text-sm uppercase"
+            for=""
+            >Last Name*<input
+              type="text"
+              required
+              name="last name"
+              class="h-9 w-full border-2 border-[#070707] border-opacity-60 pl-2 font-[fira-sansregular] text-vynx-darkblue shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)_inset] hover:border-vynx-lightblue focus:border-vynx-lightblue"
+              placeholder="Smith"
+          /></label>
+        </p>
+      </div>
+      <p class="">
+        <label
+          class="mb-2 mt-4 flex flex-col font-[fira-sansbold] text-sm uppercase"
+          for=""
+          >Email*<input
+            type="email"
+            name="email"
+            class="h-9 w-full border-2 border-[#070707] border-opacity-60 pl-2 font-[fira-sansregular] text-vynx-darkblue shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)_inset] hover:border-vynx-lightblue focus:border-vynx-lightblue"
+            required
+            placeholder="JSmith@example.com" /><span></span
+        ></label>
+      </p>
+      <p class="">
+        <label
+          class="mb-2 mt-4 flex flex-col font-[fira-sansbold] text-sm uppercase"
+          for=""
+          >Website*<input
+            type="text"
+            name="website"
+            class="h-9 w-full border-2 border-[#070707] border-opacity-60 pl-2 font-[fira-sansregular] text-vynx-darkblue shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)_inset] hover:border-vynx-lightblue focus:border-vynx-lightblue"
+            placeholder="example.com"
+        /></label>
+      </p>
+      <div class="mt-4 flex flex-col items-center justify-between gap-4 text-white">
+        <p class="text-sm self-start ">*Are Required</p>
+        <div data-netlify-recaptcha="true" class="self-start"></div>
+        <button type="submit" class="button self-end">Submit</button>
+      </div>
+      <p class="mt-4 opacity-70" >By submitting this form you agree to future communication</p>
+    </form>
+    
+  </div>
+
+  
+</article>

@@ -1,0 +1,26 @@
+{
+  "benefits": {
+    "title": "Benefits",
+    "anchor": "lg-benefits"
+  },
+  "featured-work": {
+    "title": "Featured Work",
+    "anchor": "lg-featured-work"
+  },
+  "process": {
+    "title": "Process",
+    "anchor": "lg-process"
+  },
+  "about": {
+    "title": "About",
+    "anchor": "lg-about"
+  },
+  "pricing": {
+    "title": "Pricing",
+    "anchor": "lg-pricing"
+  },
+  "contact": {
+    "title": "Contact",
+    "anchor": "lg-contact"
+  }
+}

@@ -1,0 +1,114 @@
+<article
+  class="cs-w-full md:cs-w-full-r flex min-h-screen justify-center bg-[#070707] bg-opacity-60 text-[rgba(255,255,255,0.85)]"
+>
+  <div class="basecontainer flex justify-center pt-9">
+    <form
+      {%
+      if
+      available.bool=="true"
+      %}
+      name="contact"
+      {%
+      else
+      %}
+      name="notifyWhenAvailable"
+      {%endif
+      %}
+      method="POST"
+      class="bg-sopris-gray max-w-[512px] p-4"
+      data-netlify="true"
+      data-netlify-recaptcha="true"
+      data-fil
+      data-fil-trigger="10"
+    >
+      <div class="">
+        <h2
+          class="headline text-center font-[archivo-semiexpandedbold] text-white"
+          data-fil
+          data-fil-trigger="10"
+        >
+          Lets work together
+        </h2>
+        <div class="flex justify-between gap-4">
+          <p class="max-w-[200px]">
+            <label
+              class="mb-2 mt-4 flex flex-col font-[fira-sansbold] text-sm uppercase"
+              for=""
+              >First Name*<input
+                type="text"
+                required
+                name="first name"
+                class="h-9 w-full border-2 border-[#070707] border-opacity-60 pl-2 font-[fira-sansregular] text-vynx-darkblue shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)_inset] hover:border-vynx-lightblue focus:border-vynx-lightblue"
+                placeholder="John" /><span></span
+            ></label>
+          </p>
+          <p class="max-w-[200px]">
+            <label
+              class="mb-2 mt-4 flex flex-col font-[fira-sansbold] text-sm uppercase"
+              for=""
+              >Last Name*<input
+                type="text"
+                required
+                name="last name"
+                class="h-9 w-full border-2 border-[#070707] border-opacity-60 pl-2 font-[fira-sansregular] text-vynx-darkblue shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)_inset] hover:border-vynx-lightblue focus:border-vynx-lightblue"
+                placeholder="Smith"
+            /></label>
+          </p>
+        </div>
+        <p class="">
+          <label
+            class="mb-2 mt-4 flex flex-col font-[fira-sansbold] text-sm uppercase"
+            for=""
+            >Email*<input
+              type="email"
+              name="email"
+              class="h-9 w-full border-2 border-[#070707] border-opacity-60 pl-2 font-[fira-sansregular] text-vynx-darkblue shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)_inset] hover:border-vynx-lightblue focus:border-vynx-lightblue"
+              required
+              placeholder="JSmith@example.com" /><span></span
+          ></label>
+        </p>
+        <p class="">
+          <label
+            class="mb-2 mt-4 flex flex-col font-[fira-sansbold] text-sm uppercase"
+            for=""
+            >Phone<input
+              type="tel"
+              name="phone"
+              class="h-9 w-full border-2 border-[#070707] border-opacity-60 pl-2 font-[fira-sansregular] text-vynx-darkblue shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)_inset] hover:border-vynx-lightblue focus:border-vynx-lightblue"
+              placeholder="123-456-7890"
+          /></label>
+        </p>
+        <p class="">
+          <label class="font-[fira-sansbold] text-sm uppercase" for=""
+            >Tell me about your business and your vision*<textarea
+              cols="30"
+              rows="10"
+              name="message"
+              required
+              class="max-h-60 w-full max-w-full border-2 border-[#070707] border-opacity-60 pl-2 pt-2 font-[fira-sansregular] text-vynx-darkblue shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)_inset] hover:border-vynx-lightblue focus:border-vynx-lightblue"
+              placeholder="My business does... I want a website that..."
+            ></textarea
+            ><span></span
+          ></label>
+        </p>
+
+        <div class="flex flex-col gap-4 text-white">
+          <p class="text-sm">*Are Required</p>
+          <div data-netlify-recaptcha="true"></div>
+          <button type="submit" class="button">Submit</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="flex justify-between text-sm text-white underline">
+      <a href="mailto:{{contactInfo.email}}">{{contactInfo.email}}</a>
+      <a href="tel:{{contactInfo.phone}}">{{contactInfo.phone}}</a>
+    </div>
+    <p
+      class="mt-9 text-center text-sm text-white opacity-70"
+      data-type="neutral"
+    >
+      © {{ helpers.getTodaysYear() }}, by {{site.legalName}}
+    </p>
+  </div>
+</article>

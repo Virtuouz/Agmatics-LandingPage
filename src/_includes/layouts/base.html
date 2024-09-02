@@ -1,0 +1,580 @@
+<!doctype html>
+<html
+  lang="en"
+  class="mx-auto my-0 max-w-[1440px] scroll-pt-20 overflow-x-hidden"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script
+      async
+      src="https://umami.vynxlabs.dev/script.js"
+      data-website-id="7cb9dfa7-3355-48d0-b7d7-ede252c6757e"
+      data-domains="vynxlabs.com"
+    ></script>
+    {% include "partials/meta-info.html" %}
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="{{ site.url }}/feed.xml"
+    />
+    {% set css %} {% include "css/styles.css" %} {% endset %}
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <style defer>
+      {{ css | safe }}
+    </style>
+  </head>
+  {% include "partials/watermark.html" %}
+  <body
+    class="mx-4 flex h-screen flex-col bg-vynx-offwhite text-lg text-vynx-darkblue selection:bg-vynx-lightblue selection:text-white sm:mx-10"
+  >
+    {% include "partials/site-head.html" %}
+
+    <main tabindex="-1" id="main-content" class="mt-20 flex-1 md:mt-28">
+      {% block content %}{% endblock %}
+    </main>
+    {% if footer %} {% include "partials/site-foot.html" %} {% endif %}
+
+    <script src="https://unpkg.com/hyperscript.org@0.9.11"></script>
+    {% if homePage %}
+
+    <script src="https://unpkg.com/fireworks-js@2.x/dist/index.umd.js"></script>
+    <script>
+      const container = document.querySelector("#lg-fireworks");
+      const FIREWORKS = new Fireworks.default(container, {
+        delay: { min: 10, max: 60 },
+      });
+      function fireworks(start) {
+        start == true ? FIREWORKS.start() : FIREWORKS.pause();
+
+        // setTimeout(() => {
+        //   fireworks.pause();
+        // }, 20000);
+      }
+    </script>
+    <script>
+      function getHostName(url) {
+        let urlcopy = null;
+        try {
+          urlcopy = new URL(url);
+          return urlcopy.hostname;
+        } catch {
+          return "invalid";
+        }
+      }
+    </script>
+
+    <script>
+      function scrollOutputToBottom() {
+        var screenh = window.innerHeight;
+        var toScroll = "" + screenh / 5;
+        let output = document.getElementById("test");
+        output.scrollIntoView(false);
+        window.scrollBy(0, toScroll);
+      }
+    </script>
+    <script>
+      function getUID() {
+        return crypto.randomUUID();
+      }
+    </script>
+    <script>
+      let result = "";
+      let status = 0;
+      async function makeCall(url, sessionId) {
+        console.log(sessionId);
+        console.log({ body: JSON.stringify({ url, sessionId }) });
+        await fetch(
+          "https://report.vynxlabs.com/.netlify/functions/validateAndTrigger",
+          {
+            method: "post",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            //mode: "no-cors",
+
+            //make sure to serialize your JSON body
+            body: JSON.stringify({ url, sessionId }),
+          },
+        )
+          .then((response) => {
+            status = response.status;
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            if (data.error) {
+              console.log(data.error);
+              result = "<br>" + data.error;
+              clearWait();
+            } else if (status == 409) {
+              result =
+                "<br>" +
+                data.message +
+                "<br>" +
+                "Here is the report:<br>" +
+                `<a class="text-blue-300 break-all" href="${data.reportURL}" target="_blank">${data.reportURL}</a>`;
+              clearWait();
+              console.log(status);
+            } else if (status == 200) {
+              result += "<br>" + data.message + "<br>" + "Generating report...";
+              console.log(status);
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+        return '<p class="width-full break-words">' + result + "</p>";
+      }
+      function clearWait() {
+        let generateButton = document.getElementById("generate");
+        let urlInput = document.getElementById("urlInput");
+        generateButton.removeAttribute("disabled");
+        generateButton.classList.remove("cursor-wait");
+        urlInput.removeAttribute("disabled");
+        urlInput.classList.remove("cursor-wait");
+      }
+    </script>
+
+    <script>
+      async function checkStatus(sessionId) {
+        let noneCounter = 0;
+        const noneLimit = 10;
+        await sleep(5000);
+        let keepChecking = true;
+        let completeSesion = false;
+        let successTriggered = false;
+        let startElapsedTime = false;
+        let intiateWaiting = true;
+        let timeoutCoutner = 630000;
+        let timeToSleep = 1000;
+        let elapsedTime = 0;
+        let elapsedTimeElement = document.getElementById("elapsedTime");
+        elapsedTimeElement.textContent = "00:00";
+        let hash = getUID();
+        while (keepChecking) {
+          let output = document.getElementById("test");
+          let { status, reportURL } = await fetch(
+            "https://report.vynxlabs.com/.netlify/functions/reportStatus",
+            {
+              method: "post",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ sessionId, completeSesion }),
+            },
+          )
+            .then((response) => {
+              return response.json();
+            })
+            .then((data) => {
+              console.log(data);
+              return data;
+            });
+          switch (status) {
+            case "none":
+              noneCounter++;
+              console.log(noneCounter);
+              break;
+            case "waiting":
+              if (intiateWaiting) {
+                output.insertAdjacentHTML(
+                  "beforeend",
+                  `<p id="waiting${hash}" class="flex flex-wrap"></p>`,
+                );
+                intiateWaiting = false;
+                scrollOutputToBottom();
+              }
+              let waitingElement = document.getElementById(`waiting${hash}`);
+              waitingElement.insertAdjacentHTML("beforeend", "<span>.<span>");
+              startElapsedTime = true;
+              elapsedTime += timeToSleep / 1000;
+              break;
+            case "generate success":
+              if (!successTriggered) {
+                output.insertAdjacentHTML(
+                  "beforeend",
+                  "<br>Report successfully created<br>uploading report...",
+                );
+                scrollOutputToBottom();
+                startElapsedTime = false;
+                let seconds = 30;
+                while (seconds > 0) {
+                  output.insertAdjacentHTML("beforeend", ".");
+                  seconds--;
+                  await sleep(1000);
+                }
+                output.insertAdjacentHTML("beforeend", "<br>Grabbing link...");
+                scrollOutputToBottom();
+                seconds = 5;
+                while (seconds) {
+                  output.insertAdjacentHTML("beforeend", ".");
+                  seconds--;
+                  await sleep(1000);
+                }
+                output.insertAdjacentHTML(
+                  "beforeend",
+                  `<br>Here is the link to your report:<br><a class="text-blue-300 break-all" href="${reportURL}" target="_blank">${reportURL}</a>`,
+                );
+                scrollOutputToBottom();
+                successTriggered = true;
+                completeSesion = true;
+                clearWait();
+              }
+
+              break;
+            case "timeout":
+              output.insertAdjacentHTML(
+                "beforeend",
+                `<br>Report creationg timed out (10 min limit).<br>Your website was too big, or something went wrong.<br>You can try again or send an email to support@vynxlabs.com to have your report created manually`,
+              );
+              scrollOutputToBottom();
+              clearWait();
+              keepChecking = false;
+              break;
+            default:
+              break;
+          }
+          if (startElapsedTime) {
+            let minutes = elapsedTime / 60;
+            minutes = minutes | 0;
+            let seconds = elapsedTime % 60;
+            let minutesString = String(minutes);
+            let secondsString = String(seconds);
+
+            if (minutes < 10) {
+              minutesString = "0" + minutesString;
+            }
+            if (seconds < 10) {
+              secondsString = "0" + secondsString;
+            }
+            elapsedTimeElement.textContent = `${minutesString}:${secondsString}`;
+          }
+          timeoutCoutner -= timeToSleep;
+          console.log(timeoutCoutner);
+          if (timeoutCoutner <= 0) {
+            output.insertAdjacentHTML(
+              "beforeend",
+              `<br>Report creation timed out (10 min limit).<br>Your website was too big, or something went wrong.<br>You can try again or send an email to support@vynxlabs.com to have your report created manually`,
+            );
+            keepChecking = false;
+            clearWait();
+          }
+          if (noneCounter >= noneLimit) {
+            clearWait();
+            console.log("breaking");
+            keepChecking = false;
+          }
+          await sleep(timeToSleep);
+        }
+        //scrollOutputToBottom();
+      }
+      function sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+      function clearWait() {
+        let generateButton = document.getElementById("generate");
+        let urlInput = document.getElementById("urlInput");
+        generateButton.removeAttribute("disabled");
+        generateButton.classList.remove("cursor-wait");
+        urlInput.removeAttribute("disabled");
+        urlInput.classList.remove("cursor-wait");
+      }
+    </script>
+
+    {% endif %}
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        /*************************************************
+                  HELPERS
+**************************************************/
+
+        window.$ = document.querySelector.bind(document);
+        window.$$ = document.querySelectorAll.bind(document);
+
+        // helper function very useful for various animations
+        // note: the callback function, when you define it, requires an 'entries' argument (of type IntersectionObserverEntry)
+        window.whenElementCrossesPercentageUpViewPort = function (
+          element,
+          percentage,
+          callback,
+        ) {
+          let observer = new IntersectionObserver(callback, {
+            rootMargin: `0px 0px -${percentage}% 0px`,
+          });
+          observer.observe(element);
+        };
+
+        /*************************************************
+                   PARALLAX
+**************************************************/
+
+        let requestedAnimationFrame;
+
+        function initializeParallax() {
+          window.parallaxElements = [];
+
+          $$("[data-parallax]").forEach((el) => {
+            window.parallaxElements.push({
+              element: el,
+              speed: el.getAttribute("data-parallax"),
+              isInView: false, //,
+              //scrolledIntoViewAt: -1
+            });
+
+            let parallaxObserver = new IntersectionObserver(
+              handleParallaxIntersection,
+            );
+            parallaxObserver.observe(el);
+
+            function handleParallaxIntersection(entries) {
+              let elementReference = window.parallaxElements.find(
+                (ref) => ref.element == el,
+              );
+
+              if (entries[0].isIntersecting) {
+                elementReference.isInView = true;
+
+                if (!elementReference.hasOwnProperty("scrolledIntoViewAt"))
+                  elementReference.scrolledIntoViewAt =
+                    document.scrollingElement.scrollTop;
+              } else {
+                elementReference.isInView = false;
+              }
+            }
+          });
+
+          window.addEventListener(
+            "scroll",
+            () => {
+              //debounce to requestAnimationFrame
+              if (requestedAnimationFrame)
+                window.cancelAnimationFrame(requestedAnimationFrame);
+
+              requestedAnimationFrame =
+                window.requestAnimationFrame(updateParallax);
+            },
+            false,
+          );
+        }
+
+        function updateParallax() {
+          window.parallaxElements.forEach((parallaxElement) => {
+            if (!parallaxElement.isInView) return;
+
+            let scrollPositionNow = document.scrollingElement.scrollTop;
+            let scrollPositionAtFirstSighting =
+              parallaxElement.scrolledIntoViewAt;
+            let parallaxSpeed = parallaxElement.speed;
+
+            let el = parallaxElement.element;
+            let translation =
+              (scrollPositionNow - scrollPositionAtFirstSighting) *
+              parallaxSpeed;
+            el.style.transform = `translateY(${translation}px)`;
+          });
+        }
+
+        initializeParallax();
+
+        /*************************************************
+                  FADE-IN & LIFT
+**************************************************/
+
+        function fadeInAndLift(entries) {
+          if (entries[0].isIntersecting) {
+            let el = entries[0].target;
+
+            el.style.transform = "translateY(0)";
+            el.style.opacity = 1;
+          }
+        }
+
+        function fadeInAndLiftChildren(entries) {
+          if (entries[0].isIntersecting) {
+            let parent = entries[0].target;
+            let children = parent.children;
+            let interval = 150;
+
+            Array.from(children).forEach((child, i) => {
+              setTimeout(() => {
+                child.style.transform = "translateY(0)";
+                child.style.opacity = 1;
+              }, interval * i);
+            });
+          }
+        }
+
+        function setFadeInAndLiftStyles(el) {
+          el.style.transform = "translateY(30px)";
+          el.style.opacity = 0;
+          el.style.transition = "all 0.4s ease-out";
+        }
+
+        function initializeFadeInAndLift() {
+          //setup for single-element fade-in-and-lift
+          $$("[data-fil]").forEach((el) => {
+            setFadeInAndLiftStyles(el);
+
+            let percentage = el.getAttribute("data-fil-trigger") || 50;
+
+            window.whenElementCrossesPercentageUpViewPort(
+              el,
+              percentage,
+              fadeInAndLift,
+            );
+          });
+
+          //setup for multiple-child-element fade-in-and-lift
+          $$("[data-fil-children]").forEach((parent) => {
+            let childNodes = parent.children;
+            Array.from(childNodes).forEach((childNode) => {
+              setFadeInAndLiftStyles(childNode);
+            });
+
+            let percentage = parent.getAttribute("data-fil-trigger") || 50;
+
+            window.whenElementCrossesPercentageUpViewPort(
+              parent,
+              percentage,
+              fadeInAndLiftChildren,
+            );
+          });
+        }
+
+        initializeFadeInAndLift();
+
+        /*************************************************
+                 TYPING ANIMATION
+**************************************************/
+
+        function initializeTyping() {
+          window.typingAnimationData = [];
+
+          $$("[data-typing]").forEach((el) => {
+            let text = el.textContent;
+            let millisecondsPerFrame =
+              el.getAttribute("data-typing-speed") || 20;
+            let framesPerStep =
+              el.getAttribute("data-typing-frames-per-step") || 1;
+            let canBeRepeated = el.hasAttribute("data-typing-repeat");
+            let readyToRepeat = true;
+
+            window.typingAnimationData.push({
+              element: el,
+              text: text,
+              millisecondsPerFrame: millisecondsPerFrame,
+              framesPerStep: framesPerStep,
+              canBeRepeated: canBeRepeated,
+              readyToRepeat: readyToRepeat,
+            });
+
+            whenElementCrossesPercentageUpViewPort(el, 0, (entries) => {
+              if (!entries[0].isIntersecting) return;
+
+              let options = {
+                millisecondsPerFrame: millisecondsPerFrame,
+                framesPerStep: framesPerStep,
+                canBeRepeated: canBeRepeated,
+                readyToRepeat: readyToRepeat,
+              };
+
+              animateTyping(el, text, options);
+            });
+          });
+        }
+
+        function getTypingAnimationReadyToRepeatStatus(target) {
+          let targetData = window.typingAnimationData.find(
+            (datum) => datum.element == target,
+          );
+          return targetData.readyToRepeat;
+        }
+
+        function setTypingAnimationNotReadyToRepeat(target) {
+          window.typingAnimationData.find(
+            (datum) => datum.element == target,
+          ).readyToRepeat = false;
+        }
+
+        String.prototype.replaceAt = function (index, replacement) {
+          return (
+            this.substring(0, index) +
+            replacement +
+            this.substring(index + replacement.length)
+          );
+        };
+
+        function animateTyping(target, text, options) {
+          const fillerCharacters = options.fillerCharacters || "1234567890";
+          const framesPerStep = options.framesPerStep || 1;
+          const millisecondsPerFrame = options.millisecondsPerFrame || 20;
+          const canBeRepeated = !!options.canBeRepeated; //default to false if no value passed in
+          const readyToRepeat =
+            options.readyToRepeat == undefined ? true : options.readyToRepeat;
+
+          if (!getTypingAnimationReadyToRepeatStatus(target)) return;
+
+          let textLength = text.length;
+          let currentPos = 0;
+          let remainingFramesInThisStep = framesPerStep;
+          let remainingTotalFrames = framesPerStep * textLength;
+
+          let output = "";
+
+          function getRandomFillerCharacter() {
+            let randomNumber = Math.floor(
+              fillerCharacters.length * Math.random(),
+            );
+            let randomCharacter = fillerCharacters.charAt(randomNumber);
+            return randomCharacter;
+          }
+
+          function newFrame() {
+            window.setTimeout(function () {
+              if (remainingTotalFrames > 0) {
+                //insert space to be replaced with appropriate character
+                if (output.length < currentPos + 1) {
+                  output.concat(" ");
+                }
+
+                if (remainingFramesInThisStep === 1) {
+                  //show correct character @ current position
+                  let correctChar = text.charAt(currentPos);
+                  output = output.replaceAt(currentPos, correctChar);
+                  target.textContent = output;
+
+                  remainingFramesInThisStep = framesPerStep;
+                  currentPos++;
+                } else if (remainingFramesInThisStep > 1) {
+                  //show random character @ current position
+                  let randomChar = getRandomFillerCharacter();
+                  output = output.replaceAt(currentPos, randomChar);
+                  target.textContent = output;
+
+                  remainingFramesInThisStep--;
+                }
+
+                remainingTotalFrames--;
+                newFrame();
+              } else {
+                //upon finishing the animation...
+                if (!canBeRepeated) {
+                  setTypingAnimationNotReadyToRepeat(target);
+                }
+              }
+            }, millisecondsPerFrame);
+          }
+
+          newFrame(remainingTotalFrames);
+        }
+
+        initializeTyping();
+      });
+    </script>
+  </body>
+</html>

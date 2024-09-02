@@ -1,0 +1,696 @@
+{% extends "layouts/base.html" %} {% block content %}
+
+{% set month = helpers.getCurrentMonth() %}
+
+<div _="on load call getUID() set $sessionId to it log $sessionId"></div>
+{# HERO SECTION #}
+<article
+  class="relative"
+  data-fil-children
+  _="
+  on intersection(intersecting) having threshold 0.2
+  if intersecting then
+  transition #lg-nav-cta opacity to 0 
+
+  else
+  transition #lg-nav-cta opacity to 1 
+  
+  "
+>
+  <div class="flex min-h-min flex-col items-center">
+    <p class="font-[fira-sansbold] text-vynx-dullblue">{{hero.eyebrow}}</p>
+    <h1
+      class="max-w-[1000px] text-center font-[archivoblack] text-4xl sm:text-[64px] sm:leading-[70px]"
+    >
+      {{ hero.headline }}
+      <span
+        class="absolute ml-1 mt-2 h-0 w-[9px] overflow-hidden sm:w-[18px]"
+        _="on load wait 1.5s then transition my height to 57px over 200ms"
+        >{% include "partials/illustrations/exclamation.svg" %}</span
+      >
+      {# width="18" height="57" #}
+    </h1>
+
+    <p class="mb-4 mt-8 max-w-[500px] text-center">{{ hero.subheadline }}</p>
+    <div
+      class="mt-8 flex flex-col flex-wrap justify-center items-center gap-5 min-[455px]:gap-5"
+      data-umami-event="hero-cta"
+    >
+      {% include "partials/cta-button.html" %}
+      <a
+        class="mr-3 h-min max-w-max border-2 border-vynx-dullblue px-4 py-3 text-center text-sm font-bold uppercase text-vynx-dullblue transition-colors hover:bg-vynx-lightblue hover:text-white focus:outline-none focus:ring-4 focus:ring-blue-300 md:mr-0 md:text-base"
+        href="{{hero.freeLink}}"
+        >Free website review</a
+      >
+    </div>
+  </div>
+
+  <div
+    class="mt-[10vh] flex flex-shrink flex-grow basis-1 justify-center sm:mt-[20vh] md:mt-[10vh]"
+  >
+    <div
+      class="absolute -left-4 -top-32 max-[630px]:-top-5 max-[630px]:left-5 sm:-left-10"
+    >
+      <div
+        class="max-w-max -rotate-[28deg] font-[gochi-handregular] max-[630px]:rotate-0 md:text-2xl"
+        data-typing
+        data-typing-speed="40"
+      >
+        Done in 24 days!
+      </div>
+      <div
+        class="relative left-20 top-0 h-0 overflow-hidden max-[630px]:hidden md:left-36"
+        _="on load wait 1.5s then transition my height to 81px over 200ms"
+      >
+        {% include "partials/illustrations/arrow.svg" %}
+      </div>
+    </div>
+    {% image hero.imgDesktop, "max-w-full overflow-hidden","desktop image of
+    Sopris website ","(max-width: 2000px) 1920px (max-width: 1000px) 850px
+    (max-width: 850px) 600px (max-width: 500px) 300px",[1920,850,600,500,300]%}
+  </div>
+</article>
+
+{# WHAT YOU"LL GET #}
+<article
+  id="benefits"
+  class="cs-w-full mt-6 flex flex-col items-center bg-white pb-24"
+  _="
+  on intersection(intersecting) having threshold 0.2
+  set nav to #lg-benefits
+  if intersecting then
+  add .cs-nav-link to nav
+  remove .text-white from nav
+  js(nav)
+  nav.classList.remove('md:text-vynx-darkblue'); 
+end 
+  else
+  remove .cs-nav-link from nav
+  add .text-white to nav
+  
+  js(nav) 
+  nav.classList.add('md:text-vynx-darkblue');  
+  end
+  "
+>
+  <div class="basecontainer">
+    <div
+      class="flex flex-col items-center pt-14"
+      data-fil
+      data-fil-trigger="10"
+    >
+      <h2 class="headline">{{ features.headline }}</h2>
+      <p class="subhead">{{features.subheadline}}</p>
+    </div>
+    <div class="mt-12 flex min-h-[900px] flex-wrap justify-center">
+      {% for placeholder,group in groups %}
+      <div
+        class="flex flex-col items-center justify-around border-x-2"
+        data-fil
+        data-fil-trigger="10"
+      >
+        {% for thing,feature in group %}
+        <div
+          class="mx-3 mt-16 flex max-w-[300px] flex-col items-center border-t-2 py-10 max-[350px]:mx-1"
+          data-fil
+          data-fil-trigger="20"
+        >
+          <div class="w-min rounded-full bg-vynx-dullblue">
+            {% include "partials/illustrations/"+feature.icon %}
+          </div>
+          <h3
+            class="mt-1 text-center font-[archivo-semiexpandedmedium] text-3xl"
+          >
+            {{feature.headline}}
+          </h3>
+          <p class="mt-2 text-center leading-[22px]">{{feature.desc}}</p>
+        </div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</article>
+
+{# featured work #}
+<article
+  id="featured-work"
+  class="cs-w-full flex flex-col items-center overflow-hidden"
+  _="
+  on intersection(intersecting) having threshold 0.1
+  set nav to #lg-featured-work
+  if intersecting then
+  add .cs-nav-link to nav
+  remove .text-white from nav
+  js(nav)
+  nav.classList.remove('md:text-vynx-darkblue'); 
+end 
+  else
+  remove .cs-nav-link from nav
+  add .text-white to nav
+  
+  js(nav) 
+  nav.classList.add('md:text-vynx-darkblue');  
+  end
+  "
+>
+  <div class="basecontainer w-full">
+    <h2 class="headline mt-16" data-fil data-fil-trigger="10">
+      {{featuredWork.headline}}
+    </h2>
+    <div class="mt-12 flex flex-col gap-[700px] sm:gap-80">
+      {% for tmemp,work in featuredWork.works %}
+      <div class="relative flex">
+        <div
+          class="z-10 h-min max-w-[450px] bg-white p-5 opacity-90"
+          data-fil
+          data-fil-trigger="10"
+        >
+          <div class="flex flex-col items-center">
+            <h3 class="text-center text-3xl sm:text-4xl">{{ work.business}}</h3>
+            <p
+              class="relative mt-7 w-[200px] text-center text-sm before:absolute before:-top-2 before:left-1/4 before:h-[2px] before:w-[120px] before:bg-vynx-lightblue before:content-['']"
+            >
+              {{ work.subhead }}
+            </p>
+          </div>
+          <p class="mt-4">{{work.desc}}</p>
+          <ul
+            class="mt-9 list-image-[url(/images/icons/triangle-right.svg)] pl-5"
+          >
+            {% for placeholder, feat in work.feats %}
+            <li class="mt-1">{{feat}}</li>
+            {% endfor %}
+          </ul>
+          <a href="{{ work.link }}" target="_blank" class="button mt-5 block"
+            >View Website</a
+          >
+        </div>
+        <div
+          class="absolute"
+          data-parallax="-0.1"
+          data-fil
+          data-fil-trigger="10"
+        >
+          {% image work.desktop, "relative left-[40vw] top-[500px]
+          sm:top-0","desktop image of "+work.business,"(max-width: 2000px)
+          1920px (max-width: 1000px) 850px (max-width: 850px) 600px (max-width:
+          500px) 300px",[1920,1500,1000,850,600,500,300]%}
+        </div>
+        <div
+          class="absolute"
+          data-parallax="-0.15"
+          data-fil
+          data-fil-trigger="10"
+        >
+          {% image work.tablet, "relative left-[5vw] sm:left-[30vw] top-[800px]
+          sm:top-96","tablet image of "+work.business,"(max-width: 2000px)
+          1920px (max-width: 1000px) 850px (max-width: 850px) 600px (max-width:
+          500px) 300px",[1920,1500,1000,850,600,500,300]%}
+        </div>
+        <div
+          class="absolute"
+          data-parallax="-0.2"
+          data-fil
+          data-fil-trigger="10"
+        >
+          {% image work.phone, "relative left-[60vw] top-[800px]
+          sm:top-96","Phone image of "+work.business,"(max-width: 2000px) 1920px
+          (max-width: 1000px) 850px (max-width: 850px) 600px (max-width: 500px)
+          300px",[1920,1500,1000,850,600,500,300]%}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <h2 class="headline mt-[700px] sm:mt-96" data-fil data-fil-trigger="10">
+      {{featuredWork.pastProjects.headline}}
+    </h2>
+    <div
+      class="mt-20 flex flex-wrap justify-center gap-10"
+      data-fil-children
+      data-fil-trigger="10"
+    >
+      {% for temp,project in featuredWork.pastProjects.projects %} {% image
+      project, "min-w-[250px] w-[400px] lg:w-[420px] basis-0","Past
+      work","(max-width: 2000px) 1920px (max-width: 1000px) 850px (max-width:
+      850px) 600px (max-width: 500px) 300px",[1200,800,600,500,300]%} {% endfor
+      %}
+    </div>
+  </div>
+</article>
+
+<div class="cs-w-full">
+  {# speed test #}
+  <article
+    class="cs-w-full mt-24 flex flex-col [box-shadow:rgba(100,_100,_111,_0.5)_0px_7px_29px_0px;] md:flex-row"
+  >
+    <div
+      class="md:cs-w-full-l flex flex-col items-center bg-[#242424] px-4 py-12 text-white sm:px-10"
+    >
+      <h2 class="headline max-w-[550px]" data-fil data-fil-trigger="10">
+        {{ speed.google.headline }}
+      </h2>
+      <p class="subhead" data-fil data-fil-trigger="10">
+        {{speed.google.subhead}}
+      </p>
+      <ol class="mt-16 max-w-[530px]">
+        <li class="relative mt-10" data-fil data-fil-trigger="10">
+          {% for num,item in speed.google.list %}
+          <div class="z-10">
+            <p class="font-[fira-sansbold]">{{item.headline}}</p>
+            <p>{{item.desc}}</p>
+          </div>
+          <div
+            class="relative -left-5 -top-20 font-[archivo-semiexpandedmedium] text-[150px] opacity-10 sm:-left-14 sm:text-[180px]"
+          >
+            {{num}}
+          </div>
+          {% endfor %}
+        </li>
+      </ol>
+    </div>
+    <div
+      class="md:cs-w-full-r flex flex-col items-center bg-vynx-offwhite px-4 py-12 sm:px-10 md:bg-white"
+    >
+      <h2 class="headline" data-fil data-fil-trigger="10">
+        {{report.headline.p1}} <br />{{report.headline.p2}}
+      </h2>
+      <p class="subhead" data-fil data-fil-trigger="10">{{report.subhead}}</p>
+      <div class="mt-16 max-w-[800px]" data-fil data-fil-trigger="10">
+        <p>{{report.mainDesc.p1}} <br />{{report.mainDesc.p2}}</p>
+        <p class="mt-7 text-base" data-fil data-fil-trigger="10">
+          {{report.mainDesc.p3}}
+        </p>
+      </div>
+      {% include "partials/reportBuilder.html" %}
+      <p class="mt-8 max-w-[800px]">{{report.explainDesc}}</p>
+    </div>
+  </article>
+
+  {# benefits #}
+  <article
+    class="sticky bottom-0 -z-10 flex [box-shadow:rgba(100,_100,_111,_0.5)_0px_7px_29px_0px;]"
+  >
+    <div
+      class="cs-w-full md:!cs-w-full-l flex flex-col items-center bg-white bg-opacity-80 px-4 py-20 sm:px-10 md:bg-opacity-100"
+    >
+      <h2 class="headline">{{benefits.benefit1.headline}}</h2>
+      <p class="subhead">{{benefits.benefit1.subhead}}</p>
+      <p class="mt-16 max-w-[500px]">{{benefits.benefit1.desc}}</p>
+    </div>
+    <div
+      class="cs-w-full md:!cs-w-full-r cs-benefit1 -z-10 bg-cover bg-center"
+    ></div>
+  </article>
+  <artice class="sticky bottom-0 -z-20 flex">
+    <div
+      class="cs-w-full md:cs-w-full-r flex flex-col items-center bg-white bg-opacity-80 px-4 py-20 sm:px-10 md:bg-opacity-100"
+    >
+      <h2 class="headline relative max-w-[550px]">
+        {{benefits.benefit2.headline}}
+        <span
+          class="-mt-3 inline-block before:absolute before:-ml-2 before:w-[100px] before:content-[url(/images/illustrations/circle.svg)] sm:before:-ml-4 sm:before:w-[150px]"
+          >{{benefits.benefit2.headlineFree}}</span
+        >
+      </h2>
+      <p class="subhead">{{benefits.benefit2.subhead}}</p>
+      <p class="mt-16 max-w-[500px]">{{benefits.benefit2.desc}}</p>
+      <p class="mt-16 text-base opacity-60">{{benefits.benefit2.disclaimer}}</p>
+    </div>
+    <div
+      class="cs-w-full md:cs-w-full-l cs-benefit2 -z-10 bg-cover bg-center"
+    ></div>
+  </artice>
+</div>
+{# Blueprint #}
+<article
+  id="process"
+  class="cs-w-full flex flex-col items-center bg-[url(/images/illustrations/grid.svg)] py-16"
+  _="
+  on intersection(intersecting) having threshold 0.2
+  set nav to #lg-process
+  if intersecting then
+  add .cs-nav-link to nav
+  remove .text-white from nav
+  js(nav)
+  nav.classList.remove('md:text-vynx-darkblue'); 
+end 
+  else
+  remove .cs-nav-link from nav
+  add .text-white to nav
+  
+  js(nav) 
+  nav.classList.add('md:text-vynx-darkblue');  
+  end
+  "
+>
+  <div class="basecontainer flex flex-col items-center">
+    <div class="flex flex-col items-center">
+      <h2 class="headline max-w-[570px]">{{blueprint.headline}}</h2>
+      <p class="subhead">{{blueprint.subhead}}</p>
+    </div>
+    <div class="mt-20 flex flex-wrap justify-center gap-16">
+      {% for label,step in blueprint.steps %}
+      <div
+        class="min-h-[260px] max-w-[380px] bg-white px-7 py-4 shadow-md"
+        data-fil
+        data-fil-trigger="10"
+      >
+        <p class="font-[fira-sansbold] text-sm uppercase">{{label}}</p>
+        <h3
+          class="relative text-2xl before:absolute before:-left-2 before:top-1 before:h-5 before:w-5 before:border-l-2 before:border-vynx-lightblue before:content-['']"
+        >
+          {{step.headline}}
+        </h3>
+        <p class="mt-2">{{step.desc}}</p>
+      </div>
+
+      {% endfor %}
+    </div>
+    <div class="mt-16" data-umami-event="blueprint-cta">
+      {% include "partials/cta-button.html" %}
+    </div>
+  </div>
+</article>
+
+{# Support #}
+<article
+  class="cs-w-full flex flex-col items-center justify-center overflow-hidden pb-16 pt-28"
+>
+  <div class="basecontainer 2xl:w-[1440px]">
+    <div class="relative flex flex-col items-start">
+      <div class="flex flex-col items-center">
+        <h2
+          class="headline max-h-min max-w-[640px]"
+          data-fil
+          data-fil-trigger="10"
+        >
+          {{support.headline}}
+        </h2>
+        <p class="subhead" data-fil data-fil-trigger="10">
+          {{support.subhead}}
+        </p>
+        <p class="mt-16 max-w-[640px]" data-fil data-fil-trigger="10">
+          {{support.desc}}
+        </p>
+        <div class="flex flex-col items-center" data-fil data-fil-trigger="10">
+          {% image support.healthCheck, "mt-20 max-w-full overflow-hidden
+          visible 2xl:hidden","desktop image of Sopris website ","(max-width:
+          2000px) 1920px (max-width: 1000px) 850px (max-width: 850px) 600px
+          (max-width: 500px) 300px",[1920,850,600,500,300]%}
+          <p class="visible mt-4 opacity-70 2xl:hidden">
+            {{support.healthCheckLabel}}
+          </p>
+        </div>
+      </div>
+      <div class="mt-24 flex flex-wrap justify-center">
+        {% for benefits,benefit in support.benefits1 %}
+        <div
+          class="max-w-[321px] border-2 px-3 py-12"
+          data-fil
+          data-fil-trigger="10"
+        >
+          <h3 class="text-2xl">{{benefit.headline}}</h3>
+          <p>{{benefit.desc}}</p>
+        </div>
+        {% endfor %} {% for benefits,benefit in support.benefits2 %}
+        <div
+          class="max-w-[321px] border-2 px-3 py-12 2xl:hidden"
+          data-fil
+          data-fil-trigger="10"
+        >
+          <h3 class="text-2xl">{{benefit.headline}}</h3>
+          <p>{{benefit.desc}}</p>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="flex flex-wrap">
+        {% for benefits,benefit in support.benefits2 %}
+        <div
+          class="hidden max-w-[321px] border-2 px-3 py-12 2xl:block"
+          data-fil
+          data-fil-trigger="10"
+        >
+          <h3 class="text-2xl">{{benefit.headline}}</h3>
+          <p>{{benefit.desc}}</p>
+        </div>
+        {% endfor %}
+      </div>
+      <div
+        class="absolute -z-10 hidden 2xl:inline"
+        data-parallax="0.05"
+        data-fil
+        data-fil-trigger="10"
+      >
+        {% image support.healthCheck, "relative left-[750px] -top-[100px]
+        h-[700px] w-auto ","desktop image of health check","(max-width: 2000px)
+        1920px (max-width: 1000px) 850px (max-width: 850px) 600px (max-width:
+        500px) 300px",[1920]%}
+        <p class="relative -top-24 left-[60vw] opacity-70">
+          {{support.healthCheckLabel}}
+        </p>
+      </div>
+    </div>
+  </div>
+</article>
+
+{# about #}
+<article
+  id="about"
+  class="cs-w-full flex flex-col items-center bg-white py-12"
+  _="
+  on intersection(intersecting) having threshold 0.2
+  set nav to #lg-about
+  if intersecting then
+  add .cs-nav-link to nav
+  remove .text-white from nav
+  js(nav)
+  nav.classList.remove('md:text-vynx-darkblue'); 
+end 
+  else
+  remove .cs-nav-link from nav
+  add .text-white to nav
+  
+  js(nav) 
+  nav.classList.add('md:text-vynx-darkblue');  
+  end
+  "
+>
+  <div class="basecontainer flex flex-col items-center">
+    <h2 class="headline" data-fil data-fil-trigger="10">
+      {{about.who.headline}}
+    </h2>
+    <p class="mt-6 max-w-[600px]" data-fil data-fil-trigger="10">
+      {{about.who.desc}}
+    </p>
+    <div data-fil data-fil-trigger="10">
+      {% image about.who.img, "","desktop image of Sopris website ","(max-width:
+      2000px) 1920px (max-width: 1000px) 850px (max-width: 850px) 600px
+      (max-width: 500px) 300px",[1920,850,600,500,300]%}
+    </div>
+    <h2 class="headline mt-16" data-fil data-fil-trigger="10">
+      {{about.difference.headline}} <br />
+      <span
+        id="dif"
+        _='set :intersected to false
+      on intersection(intersecting) having threshold 0.1
+      if intersecting and not :intersected wait 0.5s 
+      then js(me) 
+        me.classList.add("before:w-[200px]"); 
+        me.classList.add("sm:before:w-[300px]"); 
+        me.classList.remove("before:w-0"); 
+      end then set :intersected to true
+      '
+        class="inline-block before:absolute before:-ml-2 before:mt-2 before:w-0 before:transition-all before:content-[url(/images/illustrations/underline.svg)] before:[transition-duration:500ms] sm:before:ml-4"
+        >{{about.difference.headline2}}</span
+      >
+    </h2>
+    <div class="mt-16 flex flex-wrap justify-around gap-8">
+      {% for temp,dif in about.difference.difs %}
+      <div class="max-w-[550px]" data-fil data-fil-trigger="10">
+        <h3 class="font-[fira-sansbold] text-xl">{{dif.headline}}</h3>
+        <p>{{dif.desc}}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</article>
+
+{# Difference #}
+<article class="flex">
+  <div
+    class="cs-w-full flex h-screen items-center justify-center bg-[radial-gradient(84.01%_32.46%_at_69.58%_44.65%,_rgba(0,0,0,0.00)_0%,rgba(0,0,0,0.70)_100%);]"
+  >
+    <h2
+      data-fil
+      data-fil-trigger="10"
+      class="lead-[65px] max-w-[1120px] text-center font-[archivo-semiexpandedbold] text-6xl text-white sm:text-[118px] sm:leading-[128px]"
+    >
+      {{art.headline}}
+      <span
+        class="inline-block before:absolute before:-ml-2 before:mt-8 before:w-0 before:transition-all before:ease-out before:content-[url(/images/illustrations/underline-thick.svg)] before:[transition-duration:250ms] sm:before:mt-14"
+        _='set :intersected to false
+      on intersection(intersecting) having threshold 0.1
+      if intersecting and not :intersected wait 0.5s 
+      then js(me) 
+        me.classList.add("before:w-[125px]"); 
+        me.classList.add("sm:before:w-[239px]"); 
+        me.classList.remove("before:w-0"); 
+      end then set :intersected to true
+      '
+      >
+        {{art.headline2}}
+      </span>
+      {{art.headline3}}
+    </h2>
+  </div>
+  <div
+    class="cs-w-full cs-art -z-10 bg-cover bg-scroll bg-center lg:bg-fixed"
+  ></div>
+</article>
+
+{# pricing #}
+<article
+  id="pricing"
+  class="cs-w-full -z-40 flex flex-col items-center bg-black py-36 text-white"
+  _="
+  on intersection(intersecting) having threshold 0.2
+  set nav to #lg-pricing
+  if intersecting then
+  add .cs-nav-link to nav
+  remove .text-white from nav
+  js(nav)
+  nav.classList.remove('md:text-vynx-darkblue'); 
+end 
+  else
+  remove .cs-nav-link from nav
+  add .text-white to nav
+  
+  js(nav) 
+  nav.classList.add('md:text-vynx-darkblue');  
+  end
+  "
+>
+  <div class="basecontainer flex flex-col items-center">
+    <h2 class="headline" data-fil data-fil-trigger="10">
+      {{pricing.headline}}
+    </h2>
+    <p class="subhead" data-fil data-fil-trigger="10">{{pricing.subhead}}</p>
+    <p class="mt-7 max-w-[550px] text-center" data-fil data-fil-trigger="10">
+      {{pricing.desc}}
+    </p>
+    <div class="mt-32 flex flex-col items-center">
+      <div class="flex flex-col gap-20" data-fil data-fil-trigger="10">
+        {% for temp,option in pricing.options %}
+        <div
+          class=" flex flex-wrap justify-around gap-20 border-2 border-opacity-20 border-white  {{option.z}} sticky {{option.bottom}} sm:-bottom-60 md:bottom-0 {{option.bg}} py-5 px-2 sm:px-10"
+        >
+          {# support #}
+          <div class="min-w-[200px] flex-1">
+            <div class="flex flex-col items-center">
+              <div class="flex flex-col">
+                <p class="font-[archivo-semiexpandedbold] text-xl opacity-70">
+                  12 months of
+                </p>
+                <h3
+                  class="font-[archivo-semiexpandedbold] text-[28px] sm:text-[32px]"
+                >
+                  {{option.support.headline}}
+                </h3>
+              </div>
+              <p
+                class="mt-4 text-center text-[28px] font-[archivo_semiexpandedlight] opacity-80 sm:text-[32px]"
+              >
+                ({{option.support.price}}/month)
+              </p>
+            </div>
+            <ul
+              class="mt-12 list-image-[url(/images/icons/check-square.svg)] pl-5"
+            >
+              {% for placeholder,feature in option.support.features %}
+
+              <li>{{feature}}</li>
+
+              {% endfor %}
+            </ul>
+          </div>
+          {#
+          <div class="font-[archivo-semiexpandedbold] text-[60px]">→</div>
+          #} {# pacakge #}
+          <div class="min-w-[200px] flex-1">
+            <div class="flex flex-col items-center">
+              <div class="flex flex-col">
+                <p class="font-[archivo-semiexpandedbold] text-xl opacity-70">
+                  Gets you
+                </p>
+                <h3
+                  class="font-[archivo-semiexpandedbold] text-[28px] sm:text-[32px]"
+                >
+                  {{option.package.headline}}
+                </h3>
+              </div>
+              <p
+                class="mt-2 text-center text-[28px] font-[archivo_semiexpandedlight] opacity-80 sm:text-[32px]"
+              >
+                <span class="line-through">{{option.package.price}}</span> FREE
+              </p>
+            </div>
+            <p class="mt-12 font-[archivo-semiexpandedmedium] text-2xl">
+              {{option.package.pages}}
+            </p>
+            <p class="max-w-[500px]">{{option.package.desc}}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <p class="mt-11">
+      {{pricing.bundles}}
+      <span
+        class="inline-block line-through before:absolute before:-mt-2 before:ml-8 before:w-[24px] before:transition-all before:ease-out before:content-[url(/images/illustrations/8.svg)] before:[transition-duration:250ms]"
+        >{{pricing.bundles1}}</span
+      >
+    </p>
+    {#
+    <div class="mt-16">{% include "partials/cta-button.html" %}</div>
+    #}
+  </div>
+
+  {# fireworks #}
+  <div
+    id="lg-fireworks"
+    class="lg-fireworks absolute left-0 top-0 -z-10 h-full w-full"
+    _='
+  set :intersected to false
+  on intersection(intersecting) having threshold 0.1
+  if intersecting 
+ 
+  set :intersected to true
+  then call fireworks(true)  log "start Fireworks"
+  else if :intersected call fireworks(false) log "stop fireworks"
+  '
+  ></div>
+</article>
+
+{# FAQ #}
+<article class="mt-24 flex flex-col items-center">
+  <h2 class="headline">{{faq.headline}}</h2>
+  <ul class="mt-12 max-w-[650px]">
+    {% for temp,faq in faq.faqs %}
+    <li class="mt-8" data-fil data-fil-trigger="10">
+      <h3 class="font-[fira-sansbold] text-xl">{{faq.headline}}</h3>
+      <p>{{faq.desc}}</p>
+      {% if faq.list %}
+      <ul class="list-disc pl-5">
+        {% for temp,point in faq.list %}
+        <li>{{point}}</li>
+        {% endfor %}
+      </ul>
+
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</article>
+
+{% endblock %}

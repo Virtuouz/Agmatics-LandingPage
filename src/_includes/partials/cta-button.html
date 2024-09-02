@@ -1,0 +1,17 @@
+<a
+  role="button"
+  class="button z-10"
+  _="
+    on click 
+    go to the top of {{cta.buttonURL}} smoothly
+    "
+  >
+  {%
+    if
+    available.bool=="true"
+    %}
+  {{ cta.buttonText }}
+  {% else %}
+  {{cta.buttonUnavailable}}
+  {% endif %}</a
+>
