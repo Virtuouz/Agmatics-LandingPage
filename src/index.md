@@ -17,5 +17,10 @@ hero:
   subheadline: "AgMatics is your personal AI agronomist that comes smart out of the box, but is enhanced by the soil data reports of your farm."
   imgDesktop: "src/images/chat-interface.png"
   gradient: "/images/gradient.png"
+  soon: "Coming soon!"
+  benefits:
+    benefit1: "Easy to use"
+    benefit2: "Privacy focused"
+    benefit3: "Quick setup"
 footer: "yes"
 ---
