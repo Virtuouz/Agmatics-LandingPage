@@ -6,7 +6,7 @@ module.exports = {
     extend: {
       colors:{
         'vynx' :{
-          darkblue: '#011D26',
+          orange: '#D69E34',
           lightblue: '#5FB6E0',
           dullblue: '#156883',
           offwhite:'#F5F5F5'

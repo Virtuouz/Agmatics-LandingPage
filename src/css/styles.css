@@ -13,7 +13,7 @@
     @apply px-4 flex flex-col max-w-[1440px] sm:px-10
   }
   .button{
-    @apply bg-vynx-dullblue font-bold mr-3 h-min max-w-max px-4 py-3 text-center text-sm uppercase text-white transition-colors hover:bg-vynx-lightblue focus:outline-none focus:ring-4 focus:ring-blue-300 md:mr-0  md:text-base
+    @apply bg-vynx-orange rounded-3xl font-bold mr-3 h-min max-w-max px-4 py-3 text-center text-sm uppercase text-white transition-colors hover:bg-vynx-lightblue focus:outline-none focus:ring-4 focus:ring-blue-300 md:mr-0  md:text-base
   }
   .cs-w-full-l{
     @apply w-[50vw] relative left-1/2 right-1/2 ml-[-50vw] mr-0
