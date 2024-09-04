@@ -22,5 +22,10 @@ hero:
     benefit1: "Easy to use"
     benefit2: "Privacy focused"
     benefit3: "Quick setup"
+keyIdea:
+  headline1: Ask questions, get answers. 
+  headline2: All tailored to
+  headline3: your
+  headline4: farm
 footer: "yes"
 ---

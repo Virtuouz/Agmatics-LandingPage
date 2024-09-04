@@ -50,7 +50,164 @@
   
 </article>
 
-
+{# KEY IDEA #}
+<article class="min-h-screen flex flex-col justify-center items-center">
+  <div class="flex flex-col  w-full">
+    {# User 1 #}
+    <div
+    class="lg-user-message self-start max-w-[250px] sm:max-w-[500px] font-[fira-sansregular] text-[17px]"
+    >
+    <div class="flex gap-4">
+      <img
+        src="/src/assets/images/cody-fisher.png"
+        alt=""
+        class="hidden sm:block w-[55px] h-[55px] mt-[25px]"
+      />
+      <div>
+        <div class="flex justify-between text-xs">
+    
+          <div class="flex gap-2">
+            <img
+              src="/src/assets/images/cody-fisher.png"
+              alt=""
+              class="sm:hidden w-[25px] h-[25px]"
+            />
+            <p class="opacity-60">Cody Fisher</p>
+          </div>
+          <time
+            datetime="2024-07-13T12:34:56"
+            class="opacity-60"
+          >
+            12:34</time
+          >
+        </div>
+        <p class="p-2 bg-[#3e3733] text-white rounded-lg mt-2">
+          What type and amount of fertilizer should I use for optimal growth?
+        </p>
+      </div>
+    </div>
+    </div>
+    {# End User 1 #}
+    {# User 2 #}
+    <div
+    class="lg-user-message self-end max-w-[250px] sm:max-w-[500px] font-[fira-sansregular] text-[17px]"
+    >
+    <div class="flex gap-4">
+      <div>
+        <div class="flex justify-between text-xs">
+          <time
+            datetime="2024-07-13T12:34:56"
+            class="opacity-60"
+          >
+            12:34</time
+          >
+          <div class="flex gap-2">
+            <p class="opacity-60">Cody Fisher</p>
+            <img
+              src="/src/assets/images/cody-fisher.png"
+              alt=""
+              class="sm:hidden w-[25px] h-[25px]"
+            />
+          </div>
+        </div>
+        <p class="p-2 bg-[#3e3733] text-white rounded-lg mt-2">
+          What type and amount of fertilizer should I use for optimal growth?
+        </p>
+      </div>
+      <img
+        src="/src/assets/images/cody-fisher.png"
+        alt=""
+        class="hidden sm:block w-[55px] h-[55px] mt-[25px]"
+      />
+    </div>
+    </div>
+    {# End User 2 #}
+  </div>
+<h2 class=" text-4xl sm:text-5xl md:text-7xl font-[fira-sansbold] text-center my-20" style="transform: translateY(0px); opacity: 1; transition: 0.4s ease-out;">{{keyIdea.headline1}}<br> {{keyIdea.headline2}} 
+  <span class="inline-block before:absolute before:-ml-2 before:mt-8 before:transition-all before:ease-out 
+  before:content-[url(/images/illustrations/dash.svg)] before:[transition-duration:250ms] 
+  sm:before:mt-14 before:w-0" 
+  _="set :intersected to false
+  on intersection(intersecting) having threshold 0.1
+  if intersecting and not :intersected wait 0.5s 
+  then js(me) 
+    me.classList.add(&quot;before:w-[125px]&quot;); 
+    me.classList.add(&quot;sm:before:w-[239px]&quot;); 
+    me.classList.remove(&quot;before:w-0&quot;); 
+  end then set :intersected to true
+  ">{{keyIdea.headline3}}</span>  {{keyIdea.headline4}}</h2>
+<div class="flex flex-col  w-full">
+  {# User 1 #}
+  <div
+  class="lg-user-message self-start max-w-[250px] sm:max-w-[500px] font-[fira-sansregular] text-[17px]"
+  >
+  <div class="flex gap-4">
+    <img
+      src="/src/assets/images/cody-fisher.png"
+      alt=""
+      class="hidden sm:block w-[55px] h-[55px] mt-[25px]"
+    />
+    <div>
+      <div class="flex justify-between text-xs">
+  
+        <div class="flex gap-2">
+          <img
+            src="/src/assets/images/cody-fisher.png"
+            alt=""
+            class="sm:hidden w-[25px] h-[25px]"
+          />
+          <p class="opacity-60">Cody Fisher</p>
+        </div>
+        <time
+          datetime="2024-07-13T12:34:56"
+          class="opacity-60"
+        >
+          12:34</time
+        >
+      </div>
+      <p class="p-2 bg-[#3e3733] text-white rounded-lg mt-2">
+        What type and amount of fertilizer should I use for optimal growth?
+      </p>
+    </div>
+  </div>
+  </div>
+  {# End User 1 #}
+  {# User 2 #}
+  <div
+  class="lg-user-message self-end max-w-[250px] sm:max-w-[500px] font-[fira-sansregular] text-[17px]"
+  >
+  <div class="flex gap-4">
+    <div>
+      <div class="flex justify-between text-xs">
+        <time
+          datetime="2024-07-13T12:34:56"
+          class="opacity-60"
+        >
+          12:34</time
+        >
+        <div class="flex gap-2">
+          <p class="opacity-60">Cody Fisher</p>
+          <img
+            src="/src/assets/images/cody-fisher.png"
+            alt=""
+            class="sm:hidden w-[25px] h-[25px]"
+          />
+        </div>
+      </div>
+      <p class="p-2 bg-[#3e3733] text-white rounded-lg mt-2">
+        What type and amount of fertilizer should I use for optimal growth?
+      </p>
+    </div>
+    <img
+      src="/src/assets/images/cody-fisher.png"
+      alt=""
+      class="hidden sm:block w-[55px] h-[55px] mt-[25px]"
+    />
+  </div>
+  </div>
+  {# End User 2 #}
+</div>
+</article>
 
 
 {% endblock %}
