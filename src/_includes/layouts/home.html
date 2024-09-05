@@ -22,7 +22,7 @@
     <div class="flex min-h-min flex-col items-center basecontainer relative">
       <p class="text-2xl sm:text-5xl">{{hero.eyebrow}}</p>
       <h1
-        class="mt-4 max-w-[1200px] text-center  text-4xl sm:text-[64px] sm:leading-[70px]"
+        class="mt-4 max-w-[1200px] text-center  text-4xl sm:text-[64px] sm:leading-[70px] font-[fira-sansregular]"
       >
         {{ hero.headline | markdownify | safe }}
         
@@ -199,6 +199,27 @@
   {# End User 2 #}
 </div>
 </article>
+
+{# KEY IDEA #}
+<article class="mt-16 md:mt-32 flex flex-col justify-center items-center">
+  <div class="relative ">
+    <div data-typing data-typing-speed="150" class="w-[135px] absolute sm:-right-24 -top-10 sm:-top-2  sm:rotate-[20deg] font-[gochi-handregular] text-2xl opacity-90">{{how.easy}}</div>
+    <h2 class="text-5xl font-[fira-sansbold] text-center">{{how.headline}}</h2>
+  </div>
+  <ul class="mt-20 flex flex-wrap justify-around items-start max-w-[1200px] gap-28">
+  {% for num, step in how.steps %}
+    <li class="h-full relative flex-1 sm:min-w-[400px] min-w-[250px]  flex-col flex  justify-center {% if num % 2 ==0 %}sm:flex-row-reverse {% else %}sm:flex-row {% endif %}">
+      <div class=" text-[150px] sm:text-[200px] font-[fira-sansbold] opacity-20">{{num}}</div>
+      <div class="self-center h-full rounded-3xl bg-[#B5C9AC] max-w-[500px] p-10">
+        <h3 class="text-2xl">{{step.headline}}</h3>
+        <p class="mt-4">{{step.body}}
+        </p>
+      </div>
+    </li>
+  {% endfor %}
+</ul>
+</article>
+  
 
 
 {% endblock %}
