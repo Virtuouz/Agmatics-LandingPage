@@ -142,10 +142,19 @@
   font-weight: 100 1000;
 }
 
+@font-face {
+  font-family: "rubik";
+  src:
+    url("/fonts/Rubik-VariableFont_wght.woff2")
+      format("woff2 supports variations"),
+    url("/fonts/Rubik-VariableFont_wght.woff2") format("woff2-variations");
+  font-weight: 100 1000;
+}
+
 
 
 body {
-  font-family: "fira-sansregular", sans-serif;
+  font-family: "rubik", sans-serif;
 
   /* This fixes fi and fl not rendering because of the font. */
   letter-spacing: .1px; 
