@@ -1,49 +1,17 @@
-{% set navPages = collections.all | eleventyNavigation %} {% macro
-renderNavListItem(entry) -%} {% if entry.title == "Blog" %} {% if
-collections.blog.length %}
-<li>
-  <a
-    class="data-[state=active]:link hover:text-sopris-green block rounded py-2 pl-3 pr-4 text-white hover:bg-gray-700 dark:border-gray-700 md:p-0 md:hover:bg-transparent md:dark:hover:bg-transparent"
-    href="{{ entry.url }}"
-    {{
-    helpers.getLinkActiveState(entry.url,
-    page.url)
-    |
-    safe}}
-    >{{ entry.title }}</a
-  >
-</li>
-{% endif %} {% else %}
-<li>
-  <a
-    class="data-[state=active]:link hover:text-sopris-green block rounded py-2 pl-3 pr-4 text-white hover:bg-gray-700 dark:border-gray-700 md:p-0 md:hover:bg-transparent md:dark:hover:bg-transparent"
-    href="{{ entry.url }}"
-    {{
-    helpers.getLinkActiveState(entry.url,
-    page.url)
-    |
-    safe}}
-    >{{ entry.title }}</a
-  >
-</li>
-{% endif %} {%- if entry.children.length -%}
-<ul>
-  {%- for child in entry.children %}{{ renderNavListItem(child) }}{% endfor -%}
-</ul>
-{%- endif -%} {%- endmacro %}
+
 
 <footer
   id="contact"
   class="mt-36"
-  data-fil
-  data-fil-trigger="10"
 >
-  <div class="flex">
-    {% include "partials/contact-form.html" %}
-    <div
-      class="cs-w-full cs-footer -z-10 flex items-end justify-center bg-cover bg-center md:pb-16 font-[megrim] text-5xl font-bold text-white md:justify-normal md:pl-[15%] md:text-9xl"
-    >
-      {% include "partials/logo/logo-white.svg" %}
-    </div>
-  </div>
+{# <div class="flex justify-between text-sm underline">
+  <a href="mailto:{{contactInfo.email}}">{{contactInfo.email}}</a>
+  <a href="tel:{{contactInfo.phone}}">{{contactInfo.phone}}</a>
+</div> #}
+<p
+  class="mt-9 text-center text-sm opacity-70"
+  data-type="neutral"
+>
+  © {{ helpers.getTodaysYear() }}, by {{site.legalName}}
+</p>
 </footer>

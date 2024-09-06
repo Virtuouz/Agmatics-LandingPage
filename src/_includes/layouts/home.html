@@ -4,7 +4,7 @@
 {# HERO SECTION #}
 <article
   class="flex text-white"
-  data-fil-children
+  
   _="
   on intersection(intersecting) having threshold 0.2
   if intersecting then
@@ -16,7 +16,7 @@
   "
 >
 <div
-    class="cs-w-full  max-h-[800px] sm:max-h-[1200px] lg:max-h-[1500px] cs-gradient -z-10 bg-cover bg-scroll  lg:bg-fixed"
+    class="cs-w-full  max-h-[800px] sm:max-h-[1200px] lg:max-h-[1500px] bg-[url('/images/illustrations/gradient.svg')]  -z-10 bg-cover bg-scroll  lg:bg-fixed"
   ></div>
   <div class="cs-w-full flex mt-[100px] sm:mt-[300px] md:mt-[350px] lg:mt-[400px] items-center justify-center flex-col">
     <div class="flex min-h-min flex-col items-center basecontainer relative">
@@ -27,7 +27,7 @@
         {{ hero.headline | markdownify | safe }}
         
       </h1>
-      <div data-typing data-typing-speed="150" class="w-[135px] absolute top-[550px] min-[388px]:top-[500px] min-[440px]:right-5  min-[640px]:right-20 min-[440px]:top-1 min-[640px]:top-5 min-[640px]:rotate-[20deg] font-[gochi-handregular] text-2xl opacity-90">{{hero.soon}}</div>
+      <div data-typing data-typing-speed="100" class="w-[135px] absolute top-[550px] min-[388px]:top-[500px] min-[440px]:right-5  min-[640px]:right-20 min-[440px]:top-1 min-[640px]:top-5 min-[640px]:rotate-[20deg] font-[gochi-handregular] text-2xl opacity-90">{{hero.soon}}</div>
       <p class="mb-4 mt-8 max-w-[400px] text-center">{{ hero.subheadline }}</p>
  
         {% include "partials/notify-form.html" %}
@@ -51,7 +51,7 @@
 </article>
 
 {# KEY IDEA #}
-<article class="mt-40 relative min-h-screen flex flex-col justify-center items-center">
+<article  class="mt-40 relative min-h-screen flex flex-col justify-center items-center ">
   <div class="relative flex flex-col  w-full">
     {# User 1 #}
     <div
@@ -123,7 +123,7 @@
     </div>
     {# End User 2 #}
   </div>
-<h2 class="overflow-hidden text-4xl sm:text-5xl md:text-7xl font-[fira-sansbold] text-center py-20" style="transform: translateY(0px); opacity: 1; transition: 0.4s ease-out;">{{keyIdea.headline1}}<br> {{keyIdea.headline2}} 
+<h2 data-fil data-fil-trigger="10" class="overflow-hidden text-4xl sm:text-5xl md:text-7xl font-[fira-sansbold] text-center py-20" style="transform: translateY(0px); opacity: 1; transition: 0.4s ease-out;">{{keyIdea.headline1}}<br> {{keyIdea.headline2}} 
   <span class="inline-block before:absolute before:bg-cover before:ml-2 md:before:-ml-10 before:mt-8 before:transition-all before:ease-out 
   before:content-[url(/images/illustrations/dash.svg)] before:[transition-duration:250ms]  before:w-[50px] sm:before:w-[125px] md:before:w-[239px]" 
 >{{keyIdea.headline3}}</span>  {{keyIdea.headline4}}</h2>
@@ -219,7 +219,30 @@
   {% endfor %}
 </ul>
 </article>
-  
+
+<div class="cs-w-full my-40">
+  <article
+      class=" flex [box-shadow:rgba(100,_100,_111,_0.5)_0px_20px_29px_0px;] "
+    >
+      <div
+        class="cs-w-full md:!cs-w-full-r flex flex-col items-center bg-white bg-opacity-[85%] px-4 py-20 sm:px-10 md:bg-opacity-100"
+      >
+        <h2 class="text-5xl font-[fira-sansmedium]">{{privacy.headline1}} <span class="uppercase font-[oswald] font-bold">{{privacy.headline2}}</span> {{privacy.headline3}}</h2>
+        <div class="mt-16 max-w-[550px] flow">{{privacy.body | markdownify | safe}}</div>
+      </div>
+      <div
+        class="cs-w-full md:!cs-w-full-l -z-10 cs-privacy bg-cover  bg-[20%_50%] "
+      ></div>
+    </article>
+    <article
+      class="sticky bottom-0 -z-20 flex flex-col justify-center items-center mt-20"
+    >
+    <h2 class="md:text-5xl text-4xl text-center">{{cta.headline}}</h2>
+    <p class="max-w-[400px] text-center mt-5">{{cta.body}}</p>
+    
+    </article>
+    <div id="contact" class="z-30">{% include "partials/notify-form.html" %}</div>
+</div>
 
 
 {% endblock %}

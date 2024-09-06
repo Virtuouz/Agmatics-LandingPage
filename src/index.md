@@ -43,5 +43,21 @@ how:
     4:
       headline: Optimize your farm
       body: Receive personalized recommendations to help you optimize your farming operations. Our chatbot analyzes your unique situation and offers tailored advice, empowering you to make informed decisions that enhance productivity and sustainability.
+privacy:
+  headline1: We'll
+  headline2: never
+  headline3: sell your data
+  image: /images/farmer.jpg
+  body: >-
+    We understand that trust is essential in our relationship with you. Your data is your most valuable asset, and we are committed to safeguarding it. We want to assure you that your information will never be sold or shared with third parties.
+
+
+    Our AI chatbot is designed to provide personalized insights and support for your farm, but that means we must take privacy seriously. We employ robust security measures to protect your data and ensure it remains confidential. You can use our services with peace of mind, knowing that your farming strategies and personal information are safe with us.
+    
+    
+    Your trust is our priority, and we're here to help you grow (pun intended)—without compromising your privacy.
+cta:
+  headline: Interested?
+  body: AgMatics is almost ready and will be accepting testers soon! Spots wll be limited and it will be first come first serve 
 footer: "yes"
 ---

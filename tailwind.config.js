@@ -11,7 +11,7 @@ module.exports = {
           darkbrown: '#280F00',
           lightblue: '#5FB6E0',
           dullblue: '#156883',
-          offwhite:'#F5F5F5'
+          offwhite:'#F0E8E4'
         }
       },
     },

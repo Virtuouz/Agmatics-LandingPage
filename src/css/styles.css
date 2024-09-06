@@ -133,6 +133,14 @@
   outline: 1px solid #f00 !important;
 }  */
 
+@font-face {
+  font-family: "oswald";
+  src:
+    url("/fonts/Oswald-VariableFont_wght.woff2")
+      format("woff2 supports variations"),
+    url("/fonts/Oswald-VariableFont_wght.woff2") format("woff2-variations");
+  font-weight: 100 1000;
+}
 
 
 

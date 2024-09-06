@@ -1,6 +1,6 @@
 {% if homePage %}
-{# {% cssBackground "src" + benefits.benefit1.image, ".cs-benefit1", [600, 800, 900, 1100, 1500, 2000] %}
-{% cssBackground "src" + benefits.benefit2.image, ".cs-benefit2", [600, 800, 900, 1100, 1500, 2000] %} #}
+{# {% cssBackground "src" + benefits.benefit1.image, ".cs-benefit1", [600, 800, 900, 1100, 1500, 2000] %} #}
+{% cssBackground "src" + privacy.image, ".cs-privacy", [600, 800, 900, 1100, 1500, 2000] %} 
 {% cssBackground "src" + hero.gradient, ".cs-gradient", [600, 800, 900, 1100, 1500, 2000] %} 
 {% endif %} 
 

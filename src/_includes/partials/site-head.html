@@ -83,22 +83,7 @@ collections.blog.length %}
     {% if homePage %}
     <div class="flex items-center min-[790px]:order-3">
       <div id="lg-nav-cta" class="opacity-0" data-umami-event="nav-cta">
-        {% include "partials/cta-button.html" %} {% if available.bool
-        =="true" %}
-        <div class="flex">
-          <div
-            class="mr-2 mt-[18px] h-2 w-2 rounded-full border-2 border-[#0DC52A] bg-[#0DC52A]"
-          ></div>
-          <p class="pt-2 text-[#074715]">{{available.slots}} for {{month}}</p>
-        </div>
-        {% else %}
-        <div class="flex">
-          <div
-            class="mr-2 mt-[18px] h-2 w-2 rounded-full border-2 border-[#C5440D] bg-[#C5440D]"
-          ></div>
-          <p class="pt-2 text-[#541D06]">{{available.not}}</p>
-        </div>
-        {% endif %}
+        {% include "partials/cta-button.html" %} 
       </div>
       <button
         data-collapse-toggle="navbar-sticky"
